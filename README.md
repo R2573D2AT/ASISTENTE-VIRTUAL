@@ -120,15 +120,15 @@
         }
         .options-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            flex-direction: row; /* Alineación horizontal de las opciones */
+            justify-content: space-around; /* Distribución equitativa */
             align-items: center;
+            flex-wrap: wrap; /* Envolver las opciones si no caben en una línea */
         }
         .option {
-            width: calc(50% - 10px);
-            margin-bottom: 10px;
             display: flex;
             align-items: center;
+            margin-right: 20px; /* Espacio entre opciones */
         }
         .option span {
             margin-left: 10px;
