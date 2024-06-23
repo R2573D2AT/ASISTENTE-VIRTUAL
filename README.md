@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar tu solicitud</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             background-color: #1d0552;
             color: #ffffff;
             display: flex;
@@ -57,7 +59,7 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-weight: bold;
             letter-spacing: 1px;
             display: block;
@@ -76,7 +78,7 @@
             border-radius: 5px;
             font-size: 16px;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             background-color: #ffffff;
             color: #1d0552;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -143,7 +145,7 @@
             border-radius: 5px;
             margin-top: 20px;
             transition: background-color 0.3s, transform 0.3s;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-weight: bold;
             letter-spacing: 1px;
             font-size: 20px;
@@ -155,13 +157,17 @@
             background-color: #45a049;
             transform: scale(1.05);
         }
+        .intro {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
     <div id="container" aria-live="polite">
         <h1>Iniciar tu solicitud</h1>
         <div id="question-container">
-            <p id="question"></p>
+            <p id="question" class="intro"></p>
             <div id="answer-container" class="options-container"></div>
             <button class="button" onclick="nextQuestion()">Siguiente</button>
         </div>
@@ -175,7 +181,7 @@
     <script>
         const questions = [
             {
-                question: "Hola, soy el Asistente virtual y te ayudaré a encontrar la financiación que necesitas. ¿Estás de acuerdo?",
+                question: "Hola, soy tu Asistente virtual y te ayudaré a encontrar la financiación que necesitas. ¿Estás de acuerdo?",
                 type: "radio",
                 options: ["Sí", "No"],
                 required: true
@@ -262,7 +268,7 @@
                         input.type = 'radio';
                         input.name = 'answer';
                         input.value = option;
-                        input.required = questionData.required;
+                        input.classList.add('radio-button');
 
                         const span = document.createElement('span');
                         span.textContent = option;
@@ -310,3 +316,4 @@
     </script>
 </body>
 </html>
+
