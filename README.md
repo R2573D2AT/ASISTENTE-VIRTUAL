@@ -165,6 +165,7 @@
         @media (max-width: 600px) {
             .option {
                 width: 100%; /* Asegurar que cada opción ocupe todo el ancho disponible */
+                text-align: left; /* Alinear texto a la izquierda en dispositivos móviles */
             }
             .button {
                 width: 100%; /* Botón ocupa todo el ancho en dispositivos móviles */
@@ -182,7 +183,7 @@
         </div>
         <div id="processing">Procesando tu solicitud...</div>
         <div id="result">
-            <p id="result-text">Hemos encontrado la oferta adecuada para ti. Si estás interesado, haz clic en el botón de abajo.</p>
+            <p id="result-text">Encontramos la opción adecuada para ti. Si estás interesado, haz clic en el botón Solicitar.</p>
             <a href="http://doafftracking.tech/zaimoo.es/u2wsh/1" class="button" target="_blank">Solicitar</a>
         </div>
     </div>
@@ -297,9 +298,26 @@
         function nextQuestion() {
             const answerElement = document.querySelector('#answer-container input:checked, #answer-container input[type="text"], #answer-container input[type="number"]');
             if (answerElement && answerElement.value.trim() !== '') {
-                userResponses[currentQuestion] = answerElement.value;
-                currentQuestion++;
-                showQuestion();
+                if (currentQuestion === 1 && parseInt(answerElement.value) < 50) {
+                    alert('La cantidad mínima es de 50 euros.');
+                } else {
+                    userResponses[currentQuestion] = answerElement.value;
+
+                    // Verificar respuesta a la primera pregunta
+                    if (currentQuestion === 0) {
+                        if (answerElement.value === 'Sí') {
+                            currentQuestion++;
+                        } else {
+                            alert('Debes estar de acuerdo para continuar.');
+                        }
+                    } else if (currentQuestion === 7 && answerElement.value === 'No') {
+                        currentQuestion += 2; // Saltar la pregunta del código de oferta
+                    } else {
+                        currentQuestion++;
+                    }
+
+                    showQuestion();
+                }
             } else if (questions[currentQuestion].required) {
                 alert('Por favor, responde a la pregunta.');
             } else {
@@ -325,4 +343,5 @@
     </script>
 </body>
 </html>
+
 
