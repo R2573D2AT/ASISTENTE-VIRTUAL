@@ -60,9 +60,9 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-weight: bold;
             letter-spacing: 1px;
-            display: block; /* Cambio para que sea un bloque */
-            margin: 20px auto 0; /* Ajuste de margen */
-            width: 200px; /* Ancho fijo */
+            display: block;
+            margin: 20px auto 0;
+            width: 200px;
         }
         .button:hover {
             background-color: #45a049;
@@ -91,7 +91,7 @@
             width: 18px;
             height: 18px;
             margin-right: 8px;
-            transform: scale(1.2); /* Hacer los radios un poco más grandes */
+            transform: scale(1.2);
         }
         label {
             display: inline-block;
@@ -108,13 +108,13 @@
             letter-spacing: 1px;
         }
         h1 {
-            font-size: 32px; /* Tamaño de título más grande */
-            margin-bottom: 30px; /* Espaciado mayor debajo del título */
+            font-size: 32px;
+            margin-bottom: 30px;
         }
         p {
             font-size: 18px;
             text-align: left;
-            margin-bottom: 20px; /* Espaciado mayor debajo de los párrafos */
+            margin-bottom: 20px;
         }
         .options-container {
             display: flex;
@@ -147,9 +147,9 @@
             font-weight: bold;
             letter-spacing: 1px;
             font-size: 20px;
-            display: block; /* Cambio para que sea un bloque */
-            margin: 20px auto 0; /* Ajuste de margen */
-            width: 200px; /* Ancho fijo */
+            display: block;
+            margin: 20px auto 0;
+            width: 200px;
         }
         a.button:hover {
             background-color: #45a049;
@@ -175,7 +175,7 @@
     <script>
         const questions = [
             {
-                question: "Hola, me presento, soy el Asistente de IA y te ayudaré a encontrar la financiación que necesitas. ¿Estás de acuerdo?",
+                question: "Hola, soy el Asistente virtual y te ayudaré a encontrar la financiación que necesitas. ¿Estás de acuerdo?",
                 type: "radio",
                 options: ["Sí", "No"],
                 required: true
@@ -269,68 +269,44 @@
 
                         label.appendChild(input);
                         label.appendChild(span);
-
                         optionsContainer.appendChild(label);
                     });
 
                     answerContainer.appendChild(optionsContainer);
                 }
-
-                document.getElementById('question-container').style.display = 'block';
-                document.getElementById('processing').style.display = 'none';
-                document.getElementById('result').style.display = 'none';
             } else {
-                document.getElementById('question-container').style.display = 'none';
-                document.getElementById('processing').style.display = 'block';
-                setTimeout(function() {
-                    document.getElementById('processing').style.display = 'none';
-                    document.getElementById('result').style.display = 'block';
-                }, 3000); // Mostrar el mensaje de procesamiento durante 3 segundos
+                processResults();
             }
         }
 
         function nextQuestion() {
-            const questionData = questions[currentQuestion];
-            let answer = '';
-            if (questionData.type === 'text' || questionData.type === 'number') {
-                answer = document.getElementById('answer').value;
-            } else if (questionData.type === 'radio') {
-                const selectedOption = document.querySelector('input[name="answer"]:checked');
-                if (selectedOption) {
-                    answer = selectedOption.value;
-                }
-            }
-
-            if (questionData.required && answer.trim() === '') {
-                alert('Por favor, responde la pregunta.');
-                return;
-            }
-
-            if (questionData.question.includes('Asistente de IA') && answer === 'No') {
-                alert('Lo siento, no podemos continuar sin tu consentimiento.');
-                return;
-            }
-
-            if (questionData.min !== undefined && Number(answer) < questionData.min) {
-                alert(`La cantidad o el plazo debe ser igual o superior a ${questionData.min}.`);
-                return;
-            }
-
-            userResponses[questionData.question] = answer;
-
-            if (questionData.question.includes('¿Tienes un código de oferta?') && answer === 'Sí') {
+            const answerElement = document.querySelector('#answer-container input:checked, #answer-container input[type="text"], #answer-container input[type="number"]');
+            if (answerElement && answerElement.value.trim() !== '') {
+                userResponses[currentQuestion] = answerElement.value;
                 currentQuestion++;
                 showQuestion();
-                return;
-            } else if (questionData.question.includes('¿Tienes un código de oferta?') && answer === 'No') {
-                currentQuestion += 2; // Saltar la pregunta opcional
+            } else if (questions[currentQuestion].required) {
+                alert('Por favor, responde a la pregunta.');
+            } else {
+                currentQuestion++;
+                showQuestion();
             }
-
-            currentQuestion++;
-            showQuestion();
         }
 
-        showQuestion();
+        function processResults() {
+            document.getElementById('question-container').style.display = 'none';
+            document.getElementById('processing').style.display = 'block';
+
+            setTimeout(() => {
+                document.getElementById('processing').style.display = 'none';
+                document.getElementById('result').style.display = 'block';
+            }, 2000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('question-container').style.display = 'block';
+            showQuestion();
+        });
     </script>
 </body>
 </html>
