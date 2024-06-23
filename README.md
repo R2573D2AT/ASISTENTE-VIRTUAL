@@ -1,4 +1,5 @@
 # ASISTENTE-VIRTUAL
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -120,15 +121,14 @@
         }
         .options-container {
             display: flex;
-            flex-direction: row; /* Alineación horizontal de las opciones */
-            justify-content: space-around; /* Distribución equitativa */
+            flex-wrap: wrap;
+            justify-content: space-around;
             align-items: center;
-            flex-wrap: wrap; /* Envolver las opciones si no caben en una línea */
         }
         .option {
             display: flex;
             align-items: center;
-            margin-right: 20px; /* Espacio entre opciones */
+            margin-bottom: 10px;
         }
         .option span {
             margin-left: 10px;
@@ -160,6 +160,16 @@
         .intro {
             font-family: 'Open Sans', sans-serif;
             font-size: 18px;
+        }
+
+        /* Media queries para dispositivos móviles */
+        @media (max-width: 600px) {
+            .option {
+                width: 100%; /* Asegurar que cada opción ocupe todo el ancho disponible */
+            }
+            .button {
+                width: 100%; /* Botón ocupa todo el ancho en dispositivos móviles */
+            }
         }
     </style>
 </head>
