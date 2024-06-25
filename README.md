@@ -184,7 +184,7 @@
         <div id="processing">Procesando tu solicitud...</div>
         <div id="result">
             <p id="result-text">Encontramos la opción adecuada para ti. Si estás interesado, haz clic en el botón Solicitar.</p>
-            <a href="http://doafftracking.tech/zaimoo.es/u2wsh/1" class="button" target="_blank">Solicitar</a>
+            <a id="request-button" href="http://doafftracking.tech/zaimoo.es/u2wsh/1" class="button" target="_blank">Solicitar</a>
         </div>
     </div>
 
@@ -333,6 +333,15 @@
             setTimeout(() => {
                 document.getElementById('processing').style.display = 'none';
                 document.getElementById('result').style.display = 'block';
+
+                // Check the amount needed and set the correct link
+                const amountNeeded = parseInt(userResponses[1], 10);
+                const requestButton = document.getElementById('request-button');
+                if (amountNeeded > 10000) {
+                    requestButton.href = 'https://track.adtraction.com/t/t?a=1498404511&as=1889896122&t=2&tk=1';
+                } else {
+                    requestButton.href = 'http://doafftracking.tech/zaimoo.es/u2wsh/1';
+                }
             }, 2000);
         }
 
