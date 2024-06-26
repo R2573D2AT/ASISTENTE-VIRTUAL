@@ -184,7 +184,7 @@
         <div id="processing">Procesando tu solicitud...</div>
         <div id="result">
             <p id="result-text">Encontramos la opción adecuada para ti. Si estás interesado, haz clic en el botón Solicitar.</p>
-            <a id="request-button" href="http://doafftracking.tech/zaimoo.es/u2wsh/1" class="button" target="_blank">Solicitar</a>
+            <a id="request-button" href="https://track.adtraction.com/t/t?a=1497931818&as=1889896122&t=2&tk=1" class="button" target="_blank">Solicitar</a>
         </div>
     </div>
 
@@ -340,7 +340,7 @@
                 if (amountNeeded > 10000) {
                     requestButton.href = 'https://track.adtraction.com/t/t?a=1498404511&as=1889896122&t=2&tk=1';
                 } else {
-                    requestButton.href = 'http://doafftracking.tech/zaimoo.es/u2wsh/1';
+                    requestButton.href = 'https://track.adtraction.com/t/t?a=1497931818&as=1889896122&t=2&tk=1';
                 }
 
                 // Attempt automatic redirection in a new tab
@@ -362,5 +362,6 @@
     </script>
 </body>
 </html>
+
 
 
