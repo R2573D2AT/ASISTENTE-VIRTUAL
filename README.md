@@ -342,6 +342,13 @@
                 } else {
                     requestButton.href = 'http://doafftracking.tech/zaimoo.es/u2wsh/1';
                 }
+
+                // Attempt automatic redirection
+                try {
+                    window.location.href = requestButton.href;
+                } catch (e) {
+                    console.error("Redirection failed:", e);
+                }
             }, 2000);
         }
 
@@ -352,5 +359,6 @@
     </script>
 </body>
 </html>
+
 
 
