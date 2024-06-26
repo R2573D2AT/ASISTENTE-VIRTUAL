@@ -343,9 +343,12 @@
                     requestButton.href = 'http://doafftracking.tech/zaimoo.es/u2wsh/1';
                 }
 
-                // Attempt automatic redirection
+                // Attempt automatic redirection in a new tab
                 try {
-                    window.location.href = requestButton.href;
+                    const newTab = window.open(requestButton.href, '_blank');
+                    if (!newTab) {
+                        throw new Error('Failed to open new tab');
+                    }
                 } catch (e) {
                     console.error("Redirection failed:", e);
                 }
@@ -359,6 +362,4 @@
     </script>
 </body>
 </html>
-
-
 
