@@ -336,12 +336,20 @@
 
                 // Check the amount needed and set the correct link
                 const amountNeeded = parseInt(userResponses[1], 10);
-                const requestButton = document.getElementById('request-button');
-                if (amountNeeded > 10000) {
-                    requestButton.href = 'https://track.adtraction.com/t/t?a=1498404511&as=1889896122&t=2&tk=1';
-                } else {
-                    requestButton.href = 'http://doafftracking.tech/zaimoo.es/u2wsh/1';
+                const monthlyIncome = parseInt(userResponses[4], 10);
+                const hasASNEF = userResponses[5] === 'No';
+                const hasDebts = userResponses[6] === 'No';
+
+                let requestLink = 'http://doafftracking.tech/zaimoo.es/u2wsh/1'; // Default link
+
+                if (amountNeeded >= 50 && amountNeeded <= 1000 && monthlyIncome >= 650 && hasASNEF && hasDebts) {
+                    requestLink = 'http://doafftracking.tech/credityes.es/u2wsh/1';
+                } else if (amountNeeded > 10000) {
+                    requestLink = 'https://track.adtraction.com/t/t?a=1498404511&as=1889896122&t=2&tk=1';
                 }
+
+                const requestButton = document.getElementById('request-button');
+                requestButton.href = requestLink;
 
                 // Attempt automatic redirection in a new tab
                 try {
