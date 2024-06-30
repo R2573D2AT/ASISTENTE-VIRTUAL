@@ -1,5 +1,6 @@
 # ASISTENTE-VIRTUAL
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,7 @@
             padding: 10px;
             box-sizing: border-box;
         }
+
         #container {
             background-color: rgba(29, 5, 82, 0.9);
             padding: 20px;
@@ -29,10 +31,14 @@
             max-width: 600px;
             transition: all 0.3s ease;
         }
-        #question-container, #processing, #result {
+
+        #question-container,
+        #processing,
+        #result {
             display: none;
             transition: opacity 0.5s ease;
         }
+
         #processing {
             font-size: 20px;
             color: #00c853;
@@ -40,11 +46,13 @@
             letter-spacing: 1px;
             margin-top: 20px;
         }
+
         #result {
             font-size: 20px;
             font-weight: bold;
             padding: 20px 0;
         }
+
         .button {
             background-color: #4caf50;
             border: none;
@@ -66,11 +74,14 @@
             margin: 20px auto 0;
             width: 200px;
         }
+
         .button:hover {
             background-color: #45a049;
             transform: scale(1.05);
         }
-        input[type="text"], input[type="number"] {
+
+        input[type="text"],
+        input[type="number"] {
             width: calc(100% - 24px);
             padding: 12px;
             margin: 10px 0;
@@ -84,17 +95,21 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.3s, transform 0.3s;
         }
-        input[type="text"]:focus, input[type="number"]:focus {
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
             outline: none;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transform: scale(1.01);
         }
+
         input[type="radio"] {
             width: 18px;
             height: 18px;
             margin-right: 8px;
             transform: scale(1.2);
         }
+
         label {
             display: inline-block;
             margin: 10px 20px;
@@ -104,38 +119,47 @@
             color: #ffffff;
             letter-spacing: 1px;
         }
-        h1, p {
+
+        h1,
+        p {
             color: #ffffff;
             font-weight: bold;
             letter-spacing: 1px;
         }
+
         h1 {
             font-size: 32px;
             margin-bottom: 30px;
         }
+
         p {
             font-size: 18px;
             text-align: left;
             margin-bottom: 20px;
         }
+
         .options-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
             align-items: center;
         }
+
         .option {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
+
         .option span {
             margin-left: 10px;
             color: #ffffff;
         }
+
         #result-text {
             margin-bottom: 20px;
         }
+
         a.button {
             background-color: #4caf50;
             padding: 15px 40px;
@@ -152,10 +176,12 @@
             margin: 20px auto 0;
             width: 200px;
         }
+
         a.button:hover {
             background-color: #45a049;
             transform: scale(1.05);
         }
+
         .intro {
             font-family: 'Open Sans', sans-serif;
             font-size: 18px;
@@ -164,15 +190,20 @@
         /* Media queries para dispositivos móviles */
         @media (max-width: 600px) {
             .option {
-                width: 100%; /* Asegurar que cada opción ocupe todo el ancho disponible */
-                text-align: left; /* Alinear texto a la izquierda en dispositivos móviles */
+                width: 100%;
+                /* Asegurar que cada opción ocupe todo el ancho disponible */
+                text-align: left;
+                /* Alinear texto a la izquierda en dispositivos móviles */
             }
+
             .button {
-                width: 100%; /* Botón ocupa todo el ancho en dispositivos móviles */
+                width: 100%;
+                /* Botón ocupa todo el ancho en dispositivos móviles */
             }
         }
     </style>
 </head>
+
 <body>
     <div id="container" aria-live="polite">
         <h1>Iniciar tu solicitud</h1>
@@ -195,6 +226,13 @@
                 type: "radio",
                 options: ["Sí", "No"],
                 required: true
+            },
+            {
+                question: "Edad",
+                type: "number",
+                required: true,
+                min: 18,
+                max: 99
             },
             {
                 question: "Cantidad que necesitas (mínimo 50 euros)",
@@ -233,15 +271,16 @@
                 required: true
             },
             {
-                question: "¿Tienes un código de oferta?",
+                question: "¿Tienes nacionalidad española o residencia en España?",
                 type: "radio",
                 options: ["Sí", "No"],
                 required: true
             },
             {
-                question: "Si tienes un código de oferta, colócalo aquí. (opcional)",
-                type: "text",
-                required: false
+                question: "¿Posees propiedades o aval?",
+                type: "radio",
+                options: ["Sí", "No"],
+                required: true
             }
         ];
 
@@ -252,7 +291,10 @@
         function showQuestion() {
             if (currentQuestion < questions.length) {
                 const questionData = questions[currentQuestion];
-                document.getElementById('question').innerText = questionData.question;
+
+                const questionElement = document.getElementById('question');
+                questionElement.textContent = questionData.question;
+
                 const answerContainer = document.getElementById('answer-container');
                 answerContainer.innerHTML = '';
 
@@ -263,6 +305,9 @@
                     input.required = questionData.required;
                     if (questionData.min !== undefined) {
                         input.min = questionData.min;
+                    }
+                    if (questionData.max !== undefined) {
+                        input.max = questionData.max;
                     }
                     input.classList.add('input-field');
                     answerContainer.appendChild(input);
@@ -298,24 +343,32 @@
         function nextQuestion() {
             const answerElement = document.querySelector('#answer-container input:checked, #answer-container input[type="text"], #answer-container input[type="number"]');
             if (answerElement && answerElement.value.trim() !== '') {
-                if (currentQuestion === 1 && parseInt(answerElement.value) < 50) {
+                if (currentQuestion === 2 && parseInt(answerElement.value) < 50) {
                     alert('La cantidad mínima es de 50 euros.');
+                } else if (currentQuestion === 3 && parseInt(answerElement.value) < 1) {
+                    alert('El plazo mínimo es de 1 mes.');
                 } else {
                     userResponses[currentQuestion] = answerElement.value;
 
-                    // Verificar respuesta a la primera pregunta
+                    // Validar acuerdo inicial
                     if (currentQuestion === 0) {
-                        if (answerElement.value === 'Sí') {
-                            currentQuestion++;
-                        } else {
+                        const agree = answerElement.value.toLowerCase();
+                        if (agree === 'no') {
                             alert('Debes estar de acuerdo para continuar.');
+                            return;
                         }
-                    } else if (currentQuestion === 7 && answerElement.value === 'No') {
-                        currentQuestion += 2; // Saltar la pregunta del código de oferta
-                    } else {
-                        currentQuestion++;
                     }
 
+                    // Validar edad
+                    if (currentQuestion === 1) {
+                        const age = parseInt(answerElement.value);
+                        if (age < 18 || age >= 100) {
+                            alert('Debes tener entre 18 y 99 años para continuar.');
+                            return;
+                        }
+                    }
+
+                    currentQuestion++;
                     showQuestion();
                 }
             } else if (questions[currentQuestion].required) {
@@ -335,15 +388,22 @@
                 document.getElementById('result').style.display = 'block';
 
                 // Check the amount needed and set the correct link
-                const amountNeeded = parseInt(userResponses[1], 10);
-                const monthlyIncome = parseInt(userResponses[4], 10);
-                const hasASNEF = userResponses[5] === 'No';
-                const hasDebts = userResponses[6] === 'No';
+                const amountNeeded = parseInt(userResponses[2], 10);
+                const monthlyIncome = parseInt(userResponses[5], 10);
+                const hasASNEF = userResponses[6] === 'No';
+                const hasDebts = userResponses[7] === 'No';
+                const age = parseInt(userResponses[1], 10);
+                const hasSpanishNationality = userResponses[8] === 'Sí';
+                const hasPropertyOrGuarantee = userResponses[9] === 'Sí';
 
                 let requestLink = 'http://doafftracking.tech/zaimoo.es/u2wsh/1'; // Default link
 
-                if (amountNeeded >= 50 && amountNeeded <= 1000 && monthlyIncome >= 650 && hasASNEF && hasDebts) {
-                    requestLink = 'http://doafftracking.tech/credityes.es/u2wsh/1';
+                if (amountNeeded >= 50 && amountNeeded <= 10000) {
+                    if (age >= 25 && age <= 75 && monthlyIncome > 650 && hasASNEF && hasDebts && hasSpanishNationality && hasPropertyOrGuarantee) {
+                        requestLink = 'http://doafftracking.tech/credityes.es/u2wsh/1';
+                    } else {
+                        requestLink = 'http://doafftracking.tech/zaimoo.es/u2wsh/1';
+                    }
                 } else if (amountNeeded > 10000) {
                     requestLink = 'https://track.adtraction.com/t/t?a=1498404511&as=1889896122&t=2&tk=1';
                 }
@@ -351,7 +411,7 @@
                 const requestButton = document.getElementById('request-button');
                 requestButton.href = requestLink;
 
-                // Attempt automatic redirection in a new tab
+                // Intento de redirección automática en una nueva pestaña
                 try {
                     const newTab = window.open(requestButton.href, '_blank');
                     if (!newTab) {
@@ -369,7 +429,9 @@
         });
     </script>
 </body>
+
 </html>
+
 
 
 
