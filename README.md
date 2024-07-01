@@ -222,7 +222,7 @@
     <script>
         const questions = [
             {
-                question: "Hola, soy tu Asistente virtual y te ayudaré a encontrar la financiación que necesitas. ¿Estás de acuerdo?",
+                question: "Hola, soy tu Asistente virtual y te ayudaré a encontrar la financiación que buscas. ¿Estás de acuerdo?",
                 type: "radio",
                 options: ["Sí", "No"],
                 required: true
@@ -247,7 +247,7 @@
                 min: 1
             },
             {
-                question: "Actividad laboral (necesario)*",
+                question: "Actividad laboral*",
                 type: "radio",
                 options: ["Trabajo asalariado", "Autónomo", "Pensionista", "Desempleado"],
                 required: true
@@ -259,13 +259,13 @@
                 min: 0
             },
             {
-                question: "ASNEF (necesario)*",
+                question: "ASNEF*",
                 type: "radio",
                 options: ["Sí", "No"],
                 required: true
             },
             {
-                question: "¿Actualmente tienes préstamos o deudas pendientes? (necesario)*",
+                question: "¿Actualmente tienes préstamos o deudas pendientes?",
                 type: "radio",
                 options: ["Sí", "No"],
                 required: true
@@ -296,7 +296,7 @@
                 questionElement.textContent = questionData.question;
 
                 const answerContainer = document.getElementById('answer-container');
-                answerContainer.innerHTML = '';
+                answerContainer.innerHTML = ''; // Limpiar contenedor de respuestas anteriores
 
                 if (questionData.type === 'text' || questionData.type === 'number') {
                     const input = document.createElement('input');
@@ -396,16 +396,22 @@
                 const hasSpanishNationality = userResponses[8] === 'Sí';
                 const hasPropertyOrGuarantee = userResponses[9] === 'Sí';
 
-                let requestLink = 'http://doafftracking.tech/zaimoo.es/u2wsh/1'; // Default link
+                let requestLink = 'http://doafftracking.tech/zaimoo.es/u2wsh/1'; // Enlace por defecto
 
-                if (amountNeeded >= 50 && amountNeeded <= 10000) {
+                if (amountNeeded >= 50 && amountNeeded <= 1000) {
                     if (age >= 25 && age <= 75 && monthlyIncome > 650 && hasASNEF && hasDebts && hasSpanishNationality && hasPropertyOrGuarantee) {
-                        requestLink = 'http://doafftracking.tech/credityes.es/u2wsh/1';
-                    } else {
-                        requestLink = 'http://doafftracking.tech/zaimoo.es/u2wsh/1';
+                        requestLink = 'http://doafftracking.tech/credityes.es/u2wsh/1'; // Enlace específico 1
                     }
                 } else if (amountNeeded > 10000) {
-                    requestLink = 'https://track.adtraction.com/t/t?a=1498404511&as=1889896122&t=2&tk=1';
+                    requestLink = 'https://track.adtraction.com/t/t?a=1498404511&as=1889896122&t=2&tk=1'; // Enlace específico 2
+                } else if (amountNeeded >= 4000 && amountNeeded <= 60000) {
+                    if (age >= 30 && age <= 70 && monthlyIncome > 1100 && hasASNEF && hasDebts && hasSpanishNationality && hasPropertyOrGuarantee) {
+                        requestLink = 'https://track.adtraction.com/t/t?a=1319987434&as=1889896122&t=2&tk=1'; // Enlace específico 3
+                    }
+                } else if (amountNeeded >= 50 && amountNeeded <= 300 && parseInt(userResponses[3]) <= 30) {
+                    if (age >= 30 && age <= 45 && monthlyIncome >= 1000 && hasASNEF && hasDebts && hasSpanishNationality) {
+                        requestLink = 'https://track.adtraction.com/t/t?a=1280180470&as=1889896122&t=2&tk=1'; // Enlace específico 4
+                    }
                 }
 
                 const requestButton = document.getElementById('request-button');
@@ -415,10 +421,10 @@
                 try {
                     const newTab = window.open(requestButton.href, '_blank');
                     if (!newTab) {
-                        throw new Error('Failed to open new tab');
+                        throw new Error('Fallo al abrir nueva pestaña');
                     }
                 } catch (e) {
-                    console.error("Redirection failed:", e);
+                    console.error("Fallo en la redirección:", e);
                 }
             }, 2000);
         }
@@ -431,7 +437,6 @@
 </body>
 
 </html>
-
 
 
 
