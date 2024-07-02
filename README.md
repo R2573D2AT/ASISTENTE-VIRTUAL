@@ -206,7 +206,6 @@
 
 <body>
     <div id="container" aria-live="polite">
-        <h1>Iniciar tu solicitud</h1>
         <div id="question-container">
             <p id="question" class="intro"></p>
             <div id="answer-container" class="options-container"></div>
@@ -437,7 +436,6 @@
 </body>
 
 </html>
-
 
 
 
