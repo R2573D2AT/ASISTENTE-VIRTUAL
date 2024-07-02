@@ -221,7 +221,7 @@
     <script>
         const questions = [
             {
-                question: "Hola, soy tu Asistente virtual y te ayudaré a encontrar la financiación que buscas. ¿Estás de acuerdo?",
+                question: "¿Estás de acuerdo en continuar con la solicitud?",
                 type: "radio",
                 options: ["Sí", "No"],
                 required: true
@@ -308,7 +308,6 @@
                     if (questionData.max !== undefined) {
                         input.max = questionData.max;
                     }
-                    input.classList.add('input-field');
                     answerContainer.appendChild(input);
                 } else if (questionData.type === 'radio') {
                     const optionsContainer = document.createElement('div');
@@ -436,6 +435,7 @@
 </body>
 
 </html>
+
 
 
 
