@@ -214,7 +214,7 @@
         <div id="processing">Procesando tu solicitud...</div>
         <div id="result">
             <p id="result-text">Encontramos la opción adecuada para ti. Si estás interesado, haz clic en el botón Solicitar.</p>
-            <a id="request-button" href="https://track.adtraction.com/t/t?a=1497931818&as=1889896122&t=2&tk=1" class="button" target="_blank">Solicitar</a>
+            <a id="request-button" href="http://doafftracking.tech/zaimoo.es/u2wsh/1" class="button" target="_blank">Solicitar</a>
         </div>
     </div>
 
@@ -394,7 +394,7 @@
                 const hasSpanishNationality = userResponses[8] === 'Sí';
                 const hasPropertyOrGuarantee = userResponses[9] === 'Sí';
 
-                let requestLink = 'https://track.adtraction.com/t/t?a=1497931818&as=1889896122&t=2&tk=1'; // Enlace por defecto
+                let requestLink = 'http://doafftracking.tech/zaimoo.es/u2wsh/1'; // Enlace por defecto
 
                 if (amountNeeded >= 50 && amountNeeded <= 1000) {
                     if (age >= 25 && age <= 75 && monthlyIncome > 650 && hasASNEF && hasDebts && hasSpanishNationality && hasPropertyOrGuarantee) {
@@ -435,8 +435,6 @@
 </body>
 
 </html>
-
-
 
 
 
