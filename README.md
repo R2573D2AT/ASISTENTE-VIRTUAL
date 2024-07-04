@@ -310,125 +310,77 @@
                     }
                     answerContainer.appendChild(input);
                 } else if (questionData.type === 'radio') {
-                    const optionsContainer = document.createElement('div');
-                    optionsContainer.classList.add('options-container');
-
                     questionData.options.forEach(option => {
-                        const label = document.createElement('label');
-                        label.classList.add('option');
+                        const optionContainer = document.createElement('div');
+                        optionContainer.className = 'option';
 
                         const input = document.createElement('input');
                         input.type = 'radio';
                         input.name = 'answer';
                         input.value = option;
-                        input.classList.add('radio-button');
+                        input.required = questionData.required;
 
-                        const span = document.createElement('span');
-                        span.textContent = option;
+                        const label = document.createElement('label');
+                        label.textContent = option;
 
-                        label.appendChild(input);
-                        label.appendChild(span);
-                        optionsContainer.appendChild(label);
+                        optionContainer.appendChild(input);
+                        optionContainer.appendChild(label);
+                        answerContainer.appendChild(optionContainer);
                     });
-
-                    answerContainer.appendChild(optionsContainer);
                 }
+
+                document.getElementById('question-container').style.display = 'block';
             } else {
-                processResults();
+                processResponses();
             }
         }
 
         function nextQuestion() {
-            const answerElement = document.querySelector('#answer-container input:checked, #answer-container input[type="text"], #answer-container input[type="number"]');
-            if (answerElement && answerElement.value.trim() !== '') {
-                if (currentQuestion === 2 && parseInt(answerElement.value) < 50) {
-                    alert('La cantidad mínima es de 50 euros.');
-                } else if (currentQuestion === 3 && parseInt(answerElement.value) < 1) {
-                    alert('El plazo mínimo es de 1 mes.');
-                } else {
-                    userResponses[currentQuestion] = answerElement.value;
+            const questionData = questions[currentQuestion];
+            const answerElement = document.querySelector('[name="answer"]:checked') || document.getElementById('answer');
 
-                    // Validar acuerdo inicial
-                    if (currentQuestion === 0) {
-                        const agree = answerElement.value.toLowerCase();
-                        if (agree === 'no') {
-                            alert('Debes estar de acuerdo para continuar.');
-                            return;
-                        }
-                    }
-
-                    // Validar edad
-                    if (currentQuestion === 1) {
-                        const age = parseInt(answerElement.value);
-                        if (age < 18 || age >= 100) {
-                            alert('Debes tener entre 18 y 99 años para continuar.');
-                            return;
-                        }
-                    }
-
-                    currentQuestion++;
-                    showQuestion();
-                }
-            } else if (questions[currentQuestion].required) {
-                alert('Por favor, responde a la pregunta.');
-            } else {
+            if (answerElement && answerElement.checkValidity()) {
+                userResponses[questionData.question] = answerElement.value;
                 currentQuestion++;
                 showQuestion();
+            } else {
+                answerElement.reportValidity();
             }
         }
 
-        function processResults() {
+        function processResponses() {
             document.getElementById('question-container').style.display = 'none';
             document.getElementById('processing').style.display = 'block';
 
             setTimeout(() => {
+                let link = "https://track.adtraction.com/t/t?a=1497931818&as=1889896122&t=2&tk=1"; // Enlace por defecto
+
+                const age = parseInt(userResponses["Edad"], 10);
+                const amount = parseFloat(userResponses["Cantidad que necesitas (mínimo 50 euros)"]);
+                const employmentStatus = userResponses["Actividad laboral*"];
+                const asnef = userResponses["ASNEF*"];
+                const debts = userResponses["¿Actualmente tienes préstamos o deudas pendientes?"];
+                const nationality = userResponses["¿Tienes nacionalidad española o residencia en España?"];
+
+                if (amount <= 1000 && employmentStatus === "Trabajo asalariado" && asnef === "No") {
+                    link = "http://doafftracking.tech/credityes.es/u2wsh/1";
+                } else if (amount > 1000 && employmentStatus === "Autónomo" && asnef === "No") {
+                    link = "https://track.adtraction.com/t/t?a=1498404511&as=1889896122&t=2&tk=1";
+                } else if (age >= 21 && age <= 65 && employmentStatus === "Pensionista") {
+                    link = "https://track.adtraction.com/t/t?a=1319987434&as=1889896122&t=2&tk=1";
+                } else if (employmentStatus === "Desempleado" || asnef === "Sí" || debts === "Sí" || nationality === "No") {
+                    link = "https://track.adtraction.com/t/t?a=1280180470&as=1889896122&t=2&tk=1";
+                } else {
+                    link = "https://track.adtraction.com/t/t?a=1871477231&as=1889896122&t=2&tk=1";
+                }
+
+                document.getElementById('request-button').href = link;
                 document.getElementById('processing').style.display = 'none';
                 document.getElementById('result').style.display = 'block';
-
-                // Check the amount needed and set the correct link
-                const amountNeeded = parseInt(userResponses[2], 10);
-                const monthlyIncome = parseInt(userResponses[5], 10);
-                const hasASNEF = userResponses[6] === 'No';
-                const hasDebts = userResponses[7] === 'No';
-                const age = parseInt(userResponses[1], 10);
-                const hasSpanishNationality = userResponses[8] === 'Sí';
-                const hasPropertyOrGuarantee = userResponses[9] === 'Sí';
-
-                let requestLink = 'https://track.adtraction.com/t/t?a=1497931818&as=1889896122&t=2&tk=1'; // Enlace por defecto
-
-                if (amountNeeded >= 50 && amountNeeded <= 1000) {
-                    if (age >= 25 && age <= 75 && monthlyIncome > 650 && hasASNEF && hasDebts && hasSpanishNationality && hasPropertyOrGuarantee) {
-                        requestLink = 'http://doafftracking.tech/credityes.es/u2wsh/1'; // Enlace específico 1
-                    }
-                } else if (amountNeeded > 10000) {
-                    requestLink = 'https://track.adtraction.com/t/t?a=1498404511&as=1889896122&t=2&tk=1'; // Enlace específico 2
-                } else if (amountNeeded >= 4000 && amountNeeded <= 60000) {
-                    if (age >= 30 && age <= 70 && monthlyIncome > 1100 && hasASNEF && hasDebts && hasSpanishNationality && hasPropertyOrGuarantee) {
-                        requestLink = 'https://track.adtraction.com/t/t?a=1319987434&as=1889896122&t=2&tk=1'; // Enlace específico 3
-                    }
-                } else if (amountNeeded >= 50 && amountNeeded <= 300 && parseInt(userResponses[3]) <= 30) {
-                    if (age >= 30 && age <= 45 && monthlyIncome >= 1000 && hasASNEF && hasDebts && hasSpanishNationality) {
-                        requestLink = 'https://track.adtraction.com/t/t?a=1280180470&as=1889896122&t=2&tk=1'; // Enlace específico 4
-                    }
-                }
-
-                const requestButton = document.getElementById('request-button');
-                requestButton.href = requestLink;
-
-                // Intento de redirección automática en una nueva pestaña
-                try {
-                    const newTab = window.open(requestButton.href, '_blank');
-                    if (!newTab) {
-                        throw new Error('Fallo al abrir nueva pestaña');
-                    }
-                } catch (e) {
-                    console.error("Fallo en la redirección:", e);
-                }
             }, 2000);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('question-container').style.display = 'block';
             showQuestion();
         });
     </script>
