@@ -1,6 +1,5 @@
 # ASISTENTE-VIRTUAL
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -246,7 +245,13 @@
                 min: 1
             },
             {
-                question: "Actividad laboral*",
+                question: "Estado civil",
+                type: "radio",
+                options: ["Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a"],
+                required: true
+            },
+            {
+                question: "Actividad laboral",
                 type: "radio",
                 options: ["Trabajo asalariado", "Autónomo", "Pensionista", "Desempleado"],
                 required: true
@@ -258,7 +263,7 @@
                 min: 0
             },
             {
-                question: "ASNEF*",
+                question: "ASNEF",
                 type: "radio",
                 options: ["Sí", "No"],
                 required: true
@@ -387,16 +392,21 @@
 
                 // Check the amount needed and set the correct link
                 const amountNeeded = parseInt(userResponses[2], 10);
-                const monthlyIncome = parseInt(userResponses[5], 10);
-                const hasASNEF = userResponses[6] === 'No';
-                const hasDebts = userResponses[7] === 'No';
+                const monthlyIncome = parseInt(userResponses[6], 10);
+                const hasASNEF = userResponses[7] === 'No';
+                const hasDebts = userResponses[8] === 'No';
                 const age = parseInt(userResponses[1], 10);
-                const hasSpanishNationality = userResponses[8] === 'Sí';
-                const hasPropertyOrGuarantee = userResponses[9] === 'Sí';
+                const hasSpanishNationality = userResponses[9] === 'Sí';
+                const hasPropertyOrGuarantee = userResponses[10] === 'Sí';
+                const term = parseInt(userResponses[3], 10);
 
                 let requestLink = 'https://track.adtraction.com/t/t?a=1497931818&as=1889896122&t=2&tk=1'; // Enlace por defecto
 
-                if (amountNeeded >= 50 && amountNeeded <= 1000) {
+                if (amountNeeded >= 50 && amountNeeded <= 300 && term == 1) {
+                    if (age >= 30 && age <= 45 && monthlyIncome >= 1000 && hasASNEF && hasDebts && hasSpanishNationality) {
+                        requestLink = 'https://track.adtraction.com/t/t?a=1280180470&as=1889896122&t=2&tk=1'; // Enlace específico 4
+                    }
+                } else if (amountNeeded >= 50 && amountNeeded <= 1000) {
                     if (age >= 25 && age <= 75 && monthlyIncome > 650 && hasASNEF && hasDebts && hasSpanishNationality && hasPropertyOrGuarantee) {
                         requestLink = 'http://doafftracking.tech/credityes.es/u2wsh/1'; // Enlace específico 1
                     }
@@ -405,10 +415,6 @@
                 } else if (amountNeeded >= 4000 && amountNeeded <= 60000) {
                     if (age >= 30 && age <= 70 && monthlyIncome > 1100 && hasASNEF && hasDebts && hasSpanishNationality && hasPropertyOrGuarantee) {
                         requestLink = 'https://track.adtraction.com/t/t?a=1319987434&as=1889896122&t=2&tk=1'; // Enlace específico 3
-                    }
-                } else if (amountNeeded >= 50 && amountNeeded <= 300 && parseInt(userResponses[3]) <= 30) {
-                    if (age >= 30 && age <= 45 && monthlyIncome >= 1000 && hasASNEF && hasDebts && hasSpanishNationality) {
-                        requestLink = 'https://track.adtraction.com/t/t?a=1280180470&as=1889896122&t=2&tk=1'; // Enlace específico 4
                     }
                 }
 
@@ -433,7 +439,6 @@
         });
     </script>
 </body>
-
 </html>
 
 
