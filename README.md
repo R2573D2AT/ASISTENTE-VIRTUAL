@@ -1,4 +1,5 @@
 # ASISTENTE-VIRTUAL
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -403,12 +404,12 @@
                 let requestLink = 'https://track.adtraction.com/t/t?a=1497931818&as=1889896122&t=2&tk=1'; // Enlace por defecto
 
                 if (amountNeeded >= 50 && amountNeeded <= 300 && term == 1) {
-                    if (age >= 30 && age <= 45 && monthlyIncome >= 1000 && hasASNEF && hasDebts && hasSpanishNationality) {
-                        requestLink = 'https://track.adtraction.com/t/t?a=1280180470&as=1889896122&t=2&tk=1'; // Enlace específico 4
+                    if (age >= 20 && age <= 70 && monthlyIncome >= 600 && hasASNEF && hasDebts && hasSpanishNationality) {
+                        requestLink = 'https://track.adtraction.com/t/t?a=1267998741&as=1889896122&t=2&tk=1'; // Enlace específico 4
                     }
-                } else if (amountNeeded >= 50 && amountNeeded <= 1000) {
-                    if (age >= 25 && age <= 75 && monthlyIncome > 650 && hasASNEF && hasDebts && hasSpanishNationality && hasPropertyOrGuarantee) {
-                        requestLink = 'http://doafftracking.tech/credityes.es/u2wsh/1'; // Enlace específico 1
+                } else if (amountNeeded >= 50 && amountNeeded <= 600) {
+                    if (age >= 20 && age <= 70 && monthlyIncome > 600 && hasASNEF && hasDebts && hasSpanishNationality) {
+                        requestLink = 'https://track.adtraction.com/t/t?a=1811017073&as=1889896122&t=2&tk=1'; // Enlace específico 1
                     }
                 } else if (amountNeeded > 10000) {
                     requestLink = 'https://track.adtraction.com/t/t?a=1498404511&as=1889896122&t=2&tk=1'; // Enlace específico 2
@@ -440,6 +441,7 @@
     </script>
 </body>
 </html>
+
 
 
 
