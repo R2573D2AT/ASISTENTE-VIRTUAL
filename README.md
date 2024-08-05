@@ -404,11 +404,11 @@
 
                 if (amountNeeded >= 50 && amountNeeded <= 300 && term == 1) {
                     if (age >= 20 && age <= 70 && monthlyIncome >= 600 && hasASNEF && hasDebts && hasSpanishNationality) {
-                        requestLink = 'https://track.adtraction.com/t/t?a=1267998741&as=1889896122&t=2&tk=1'; // Enlace específico 4
+                        requestLink = 'https://track.adtraction.com/t/t?a=1497931818&as=1889896122&t=2&tk=1'; // Enlace específico 4
                     }
                 } else if (amountNeeded >= 50 && amountNeeded <= 600) {
                     if (age >= 20 && age <= 70 && monthlyIncome > 600 && hasASNEF && hasDebts && hasSpanishNationality) {
-                        requestLink = 'https://track.adtraction.com/t/t?a=1811017073&as=1889896122&t=2&tk=1'; // Enlace específico 1
+                        requestLink = 'https://track.adtraction.com/t/t?a=1497931818&as=1889896122&t=2&tk=1'; // Enlace específico 1
                     }
                 } else if (amountNeeded > 10000) {
                     requestLink = 'https://track.adtraction.com/t/t?a=1498404511&as=1889896122&t=2&tk=1'; // Enlace específico 2
