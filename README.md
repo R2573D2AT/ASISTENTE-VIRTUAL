@@ -400,7 +400,7 @@
                 const hasPropertyOrGuarantee = userResponses[10] === 'Sí';
                 const term = parseInt(userResponses[3], 10);
 
-                let requestLink = 'https://track.adtraction.com/t/t?a=1497931818&as=1889896122&t=2&tk=1'; // Enlace por defecto
+                let requestLink = 'http://doafftracking.tech/credityes.es/u2wsh/1'; // Enlace por defecto
 
                 if (amountNeeded >= 50 && amountNeeded <= 300 && term == 1) {
                     if (age >= 20 && age <= 70 && monthlyIncome >= 600 && hasASNEF && hasDebts && hasSpanishNationality) {
